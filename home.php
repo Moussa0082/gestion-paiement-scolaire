@@ -187,7 +187,7 @@ $sommeTotalPayer = getSommesTotalPayer();
 <script>
 	$('#manage-records').submit(function(e){
         e.preventDefault()
-        start_load()
+        // start_load()
         $.ajax({
             url:'ajax.php?action=save_track',
             data: new FormData($(this)[0]),
@@ -218,7 +218,7 @@ $sommeTotalPayer = getSommesTotalPayer();
             get_person()
     })
     function get_person(){
-            start_load()
+            // start_load()
         $.ajax({
                 url:'ajax.php?action=get_pdetails',
                 method:"POST",

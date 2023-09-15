@@ -93,7 +93,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
       </div>
       </div>
     </div>
@@ -153,11 +153,11 @@
 }
   window.uni_modal = function($title = '' , $url='',$size=""){
     start_load()
-    $.ajax({
+    $.ajax({  
         url:$url,
         error:err=>{
             console.log()
-            alert("An error occured")
+            alert("Erreur")
         },
         success:function(resp){
             if(resp){

@@ -39,7 +39,8 @@ if(isset($_GET['id'])){
 				</option>
 				<!-- vrai ligne fin  -->
                  <!-- test ligne -->
-				 <option value="<?php echo $row['id'] ?>" data-firstname="<?php echo $row['prenom'] ?>" data-lastname="<?php echo $row['name'] ?>" <?php echo isset($student_id) && $student_id == $row['id'] ? 'selected' : '' ?>><?php echo ucwords($row['prenom']).'  '. $row['name'] ?></option>
+				 <option value="<?php echo $row['id'] ?>" data-firstname="<?php echo $row['prenom'] ?>" data-lastname="<?php echo $row['name'] ?>"
+				  <?php echo isset($student_id) && $student_id == $row['id'] ? 'selected' : '' ?>><?php echo ucwords($row['prenom']).'  '. $row['name'] ?></option>
 
                  <!-- test ligne fin -->
 

@@ -1,6 +1,6 @@
 <?php 
 include 'db_connect.php';
-$fees = $conn->query("SELECT ef.*,s.name as sname,s.id_no,concat(c.course,' - ',c.level) as `class` FROM student_ef_list ef inner join student s on s.id = ef.student_id inner join courses c on c.id = ef.course_id  where ef.id = {$_GET['ef_id']}");
+$fees = $conn->query("SELECT ef.*,s.prenom, s.name as sname,s.id_no,concat(c.course,' - ',c.level) as `class` FROM student_ef_list ef inner join student s on s.id = ef.student_id inner join courses c on c.id = ef.course_id  where ef.id = {$_GET['ef_id']}");
 foreach($fees->fetch_array() as $k => $v){
 	$$k= $v;
 }
@@ -47,29 +47,56 @@ while($row=$payments->fetch_array()){
 	hr{
 		top: 10px;
 	}
+	 /* Cacher l'en-tête et le pied de page dans l'impression */
+	 @media print {
+        @page {
+            margin: 0; /* Supprimer les marges par défaut de l'impression */
+        }
+        body {
+            margin: 1cm; 
+        }
+        #header, #footer {
+            display: none; /* Cacher l'en-tête et le pied de page */
+        }
+		#header{
+			background-color: white ;
+		}
+    }
+	
+
+    @media print {
+        #printable-content {
+            display: block; /* Rendre la partie visible lors de l'impression */
+        }
+    }
 </style>
-<div class="container-fluid">
+<div id="header">
+    <!-- Contenu de l'en-tête -->
+</div>
+
+<div class="container-fluid" id="printable-content">
 	<div class="image">
-		<!-- <img src="./assets/image/logo.jpeg" alt="" width="100px;" height="60px;" > -->
-		   
-		
+		<img src="./assets/image/logo.jpeg" alt="" width="100px;" height="60px;" >
 			
 		</div>
 		<div class="text-droite">
 			<strong style="color: green; margin-left:45%; margin-top: -60px;">EFDM (Ecole Fondamentale Privée Dian Male)</strong>
 			<span style="color: red; text-transform:uppercase; margin-left:48%; margin-top: -10px; " >Travail-Discipline-Perseverence</span>
 			</div>
+
 	<!-- <p class="text-center"> <b>
 	<?php 
 	// echo $_GET['pid'] == 0 ? "Facture de paiement" : 'Facture de paiement'
 	 ?>
 		
 	</b></p> -->
+	<br>
+	<br>
 	<hr>
 	<div class="flex">
 		<div class="w-50">
 			<p>Matricule: <b><?php echo $ef_no ?></b></p>
-			<p>Etudiant: <b><?php echo ucwords($sname) ?></b></p>
+			<p>Etudiant: <b><?php echo ucwords($prenom . " ". $sname )  ?></b></p>
 			<p>Classe: <b><?php echo $class ?></b></p>
 		</div>
 		<?php if($_GET['pid'] > 0): ?>
@@ -154,4 +181,8 @@ while($row=$payments->fetch_array()){
 			</td>			
 		</tr>
 	</table>
+</div>
+
+<div id="footer">
+    <!-- Contenu du pied de page -->
 </div>

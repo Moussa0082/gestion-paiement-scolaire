@@ -4,7 +4,9 @@
 <div class="modal-footer row display py-1">
 		<div class="col-lg-12">
 			<button class="btn float-right btn-secondary" type="button" data-dismiss="modal">Fermer</button>
+			<!-- <button class="btn float-right btn-success mr-2" type="button" id="print">Imprimer</button> -->
 			<button class="btn float-right btn-success mr-2" type="button" id="print">Imprimer</button>
+
 		</div>
 </div>
 <style>
@@ -28,7 +30,7 @@
 	  }
 	  to {
 	    border-color: red;
-		background: #ff00002b;
+		/* background: #ff00002b; */
 	  }
 	}
 </style>

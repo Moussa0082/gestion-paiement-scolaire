@@ -38,6 +38,7 @@
 							<thead>
 								<tr>
 									<th class="text-center">#</th>
+									<th class="">Date de création</th>
 									<th class="">Classe</th>
 									<th class="">Description</th>
 									<th class="">Total Scoalarité</th>
@@ -52,6 +53,9 @@
 								?>
 								<tr>
 									<td class="text-center"><?php echo $i++ ?></td>
+									<td>
+										<p> <b><?php echo $row['date_created']?></b></p>
+									</td>
 									<td>
 										<p> <b><?php echo $row['course'] . " - " . $row['level'] ?></b></p>
 									</td>
@@ -95,7 +99,7 @@
 		$('table').dataTable()
 	})
 	$('#new_course').click(function(){
-		uni_modal("Nouveau Classe et Soumission de Scolarité","manage_course.php",'large')
+		uni_modal("Nouvelle Classe et Soumission de Scolarité","manage_course.php",'large')
 		
 	})
 

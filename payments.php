@@ -25,7 +25,7 @@
 									<th class="">Matricule Elève</th>
 									<th class="">Preom</th>
 									<th class="">Nom</th>
-									<th class="">Montant à payer</th>
+									<th class="">Montant payer</th>
 									<th class="text-center">Action</th>
 								</tr>
 							</thead>

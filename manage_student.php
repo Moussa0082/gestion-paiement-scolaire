@@ -13,7 +13,7 @@ include 'db_connect.php';
 // function generateMatricule() {
 //     // Obtenir la date actuelle au format 'YmdHis' (Année, Mois, Jour, Heures, Minutes, Secondes)
 //     $currentDate = date('YmdHis');
-
+   
 //     // Générer un nombre aléatoire à 3 chiffres
 //     $randomNumber = str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
@@ -41,11 +41,11 @@ foreach($qry->fetch_array() as $k => $val){
         <div id="msg" class="form-group"></div>
         <div class="form-group">
             <label for="" class="control-label">Matricule .</label>
-            <input type="text" class="form-control" name="id_no" id="matricule" value="" required>
+            <input type="text" class="form-control" name="id_no" id="id_no" value="<?php echo isset($id_no) ? $id_no :'' ?>" required  >
         </div>
         <div class="form-group">
             <label for="" class="control-label">Prenom</label>
-            <input type="text" name="prenom" id="" cols="30" id="first_name" rows="3" class="form-control" required=""><?php echo isset($prenom) ? $prenom :'' ?></input>
+            <input type="text" name="prenom" id="" cols="30" id="first_name" rows="3" class="form-control" required="" value="<?php echo isset($prenom) ? $prenom :'' ?>"></input>
         </div>
         <div class="form-group">
             <label for="" class="control-label">Nom</label>
@@ -70,14 +70,15 @@ foreach($qry->fetch_array() as $k => $val){
         // Assurez-vous que les champs prénom et nom ne sont pas vides
         if (firstName.length > 0 && lastName.length > 0) {
             var matricule = firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase() + year + randomNumbers;
-            document.getElementById('matricule').value = matricule;
-        } else {
-            document.getElementById('matricule').value = ''; // Effacer le champ matricule si les champs prénom ou nom sont vides
-        }
+            document.getElementById('id_no').value = matricule;
+        } 
+        // else {
+        //     document.getElementById('matricule').value = ''; // Effacer le champ matricule si les champs prénom ou nom sont vides
+        // }
     }
 
     // Écoutez les changements dans le champ Nom (Last Name) pour générer automatiquement le matricule
-    document.getElementById('last_name').addEventListener('keyup', generateMatricule);
+    document.getElementById('last_name').addEventListener('keyup', generateMatricule());
 </script>
 <script>
     $('#manage-student').on('reset',function(){

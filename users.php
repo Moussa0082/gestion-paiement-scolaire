@@ -82,7 +82,7 @@ $('.delete_user').click(function(){
 		_conf("Etes vous sûre de supprimer cet ulisateur?","delete_user",[$(this).attr('data-id')])
 	})
 	function delete_user($id){
-		start_load()
+		// start_load()
 		$.ajax({
 			url:'ajax.php?action=delete_user',
 			method:'POST',

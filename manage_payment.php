@@ -92,6 +92,7 @@ if(isset($_GET['id'])){
 		placeholder:'Selectinner ici',
 		width:'100%'
 	})
+	
 	// $('#ef_id').change(function(){
 	// 	var amount= $('#ef_id option[value="'+$(this).val()+'"]').attr('data-balance')
 	// 	$('#balance').val(parseInt(amount).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2,minimumFractionDigits:2}))

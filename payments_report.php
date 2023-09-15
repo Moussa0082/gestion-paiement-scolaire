@@ -2,7 +2,10 @@
     include 'db_connect.php';
     $month = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
 ?>
-<div class="container-fluid">
+  <div id="header">
+    <!-- Contenu de l'en-tête -->
+</div>
+<div class="container-fluid" id="printable-content">
     <div class="col-lg-12">
         <div class="card">
             <div class="card_body">
@@ -87,8 +90,12 @@
         </div>
     </div>
 </div>
+<div id="footer">
+    <!-- Contenu du pied de page -->
+</div>
 <noscript>
 	<style>
+        
 		table#report-list{
 			width:100%;
 			border-collapse:collapse
@@ -105,6 +112,26 @@
         .text-right{
             text-align:right
         }
+         /* Cacher l'en-tête et le pied de page dans l'impression */
+	 @media print {
+        @page {
+            margin: 0; /* Supprimer les marges par défaut de l'impression */
+        }
+        body {
+            margin: 1cm; 
+        }
+        #header, #footer {
+            display: none; /* Cacher l'en-tête et le pied de page */
+        }
+		
+    }
+	
+
+    @media print {
+        #printable-content {
+            display: block; /* Rendre la partie visible lors de l'impression */
+        }
+    }
 	</style>
 </noscript>
 <script>

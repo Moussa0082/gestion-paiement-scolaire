@@ -8,6 +8,7 @@ foreach($user->fetch_array() as $k =>$v){
 }
 }
 ?>
+   
 <div class="container-fluid">
 	<div id="msg"></div>
 	
