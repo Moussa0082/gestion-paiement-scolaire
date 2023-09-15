@@ -22,18 +22,17 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th class="">Date</th>
-                            <th class="">ID .</th>
-                            <th class="">EF .</th>
+                            <th class="">Matricule elève.</th>
+                            <th class="">Prenom</th>
                             <th class="">Nom</th>
                             <th class="">Montant payer</th>
-                            <th >Remarque</th>
                         </tr>
                     </thead>
                     <tbody>
 			          <?php
                       $i = 1;
                       $total = 0;
-                      $payments = $conn->query("SELECT p.*,s.name as sname, ef.ef_no,s.id_no FROM payments p inner join student_ef_list ef on ef.id = p.ef_id inner join student s on s.id = ef.student_id where date_format(p.date_created,'%Y-%m') = '$month' order by unix_timestamp(p.date_created) asc ");
+                      $payments = $conn->query("SELECT p.*,s.prenom, s.name as sname, ef.ef_no,s.id_no FROM payments p inner join student_ef_list ef on ef.id = p.ef_id inner join student s on s.id = ef.student_id where date_format(p.date_created,'%Y-%m') = '$month' order by unix_timestamp(p.date_created) asc ");
                       if($payments->num_rows > 0):
 			          while($row = $payments->fetch_array()):
                         $total += $row['amount'];
@@ -43,22 +42,20 @@
                         <td>
                             <p> <b><?php echo date("M d,Y H:i A",strtotime($row['id_no'])) ?></b></p>
                         </td>
-                        <td>
-                            <p> <b><?php echo $row['id_no'] ?></b></p>
-                        </td>
+                        
                         <td>
                             <p> <b><?php echo $row['ef_no'] ?></b></p>
+                        </td>
+                        <td>
+                            <p> <b><?php echo ucwords($row['prenom']) ?></b></p>
                         </td>
                         <td>
                             <p> <b><?php echo ucwords($row['sname']) ?></b></p>
                         </td>
                         <td class="text-right">
-                            <p> <b><?php echo number_format($row['amount'],2) ?></b></p>
+                            <p> <b><?php echo $row['amount'] ?></b></p>
                         </td>
 
-                        <td class="text-right">
-                            <p> <b><?php echo $row['remarks'] ?></b></p>
-                        </td>
                     </tr>
                     <?php 
                         endwhile;
@@ -74,7 +71,7 @@
                     <tfoot>
                         <tr>
                             <th colspan="5" class="text-right">Total</th>
-                            <th class="text-right"><?php echo number_format($total,2) ?></th>
+                            <th class="text-right"><?php echo $total ?></th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -143,7 +140,7 @@ $('#print').click(function(){
 		var ns = $('noscript').clone();
             ns.append(_c)
 		var nw = window.open('','_blank','width=900,height=600')
-		nw.document.write('<p class="text-center"><b>Payment Report as of <?php echo date("F, Y",strtotime($month)) ?></b></p>')
+		nw.document.write('<p class="text-center"><b>Rapport de paiement du mois de <?php echo date("F, Y",strtotime($month)) ?></b></p>')
 		nw.document.write(ns.html())
 		nw.document.close()
 		nw.print()

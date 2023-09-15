@@ -102,8 +102,7 @@ while($row=$payments->fetch_array()){
 		<?php if($_GET['pid'] > 0): ?>
 		<div class="w-50">
 			<p>Date paiement: <b><?php echo isset($pay_arr[$_GET['pid']]) ? date(" M d, Y",strtotime($pay_arr[$_GET['pid']]['date_created'])): '' ?></b></p>
-			<p>Montant à payer: <b><?php echo isset($pay_arr[$_GET['pid']]) ? $pay_arr[$_GET['pid']]['amount']: '' ?></b></p>
-			<p>Remarque: <b><?php echo isset($pay_arr[$_GET['pid']]) ? $pay_arr[$_GET['pid']]['remarks']: '' ?></b></p>
+			<p>Montant payer: <b><?php echo isset($pay_arr[$_GET['pid']]) ? $pay_arr[$_GET['pid']]['amount']: '' ?></b></p>
 		</div>
 		<?php endif; ?>
 	</div>

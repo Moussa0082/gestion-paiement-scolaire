@@ -74,6 +74,51 @@ $sommeTotalPayer = getSommesTotalPayer();
 
 ?>
 <style>
+
+  /* Style du conteneur du tableau de bord */
+#dashboard-container {
+    /* background-color: #fff;  */
+    /* Couleur de fond du conteneur */
+    padding: 20px; /* Espace intérieur du conteneur */
+    display: flex;
+    margin-left: 20%;
+    border: 1px solid #ddd;
+     /* Bordure autour du conteneur */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
+    /* Ombre */
+}
+
+/* Style des éléments du tableau de bord (col-md-6) */
+.dashboard-item {
+    margin: 5px;
+    margin-bottom: 20px; /* Espacement entre les éléments */
+    padding: 20px; /* Espace intérieur des éléments */
+    border: 1px solid #ddd; /* Bordure autour des éléments */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre */
+}
+
+/* Style des images dans les éléments */
+.dashboard-item img {
+    max-width: 100%; /* Ajuster la taille de l'image au conteneur */
+}
+
+/* Style pour centrer le texte verticalement */
+.dashboard-item .dash-widget-info {
+    display: flex;
+    align-items: center;
+}
+
+/* Style pour le texte à gauche */
+.dashboard-item .dash-widget-info.text-left {
+    justify-content: flex-start;
+}
+
+/* Style pour le texte à droite */
+.dashboard-item .dash-widget-info.text-right {
+    justify-content: flex-end;
+}
+
+
    span.float-right.summary_icon {
     font-size: 3rem;
     position: absolute;
@@ -143,35 +188,27 @@ $sommeTotalPayer = getSommesTotalPayer();
   <!-- new  -->
   <!-- style="width: 80px; margin-left:1%; margin-top: 5%; height:100px; border:1px solid black -->
   
-<div class="row">
-<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3" >
+<div class="row" id="dashboard-container">
+<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3 dashboard-item" >
 <div class="dash-widget dash-widget5">
 <span class="float-left"><img src="assets/img/dash/dash-1.png" alt="" width="80" ></span>
 <div class="dash-widget-info text-right">
-<span>Total Elèves</span>
-<h3>  <?php echo $eleve; ?> </h3>
+<span style="font-size: 15px;" >Total Elèves</span> 
+<h3 style="margin-top: 5px;">  <br> <?php echo $eleve; ?> </h3>
 </div>
 </div>
 </div>
-<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3"  >
+<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3  dashboard-item"  >
 <div class="dash-widget dash-widget5">
 <div class="dash-widget-info text-left d-inline-block">
-<span>Total Sommes Payer</span>
+<span style="font-size: 20px;"> Total Sommes Payer</span>
 <h3><?php echo $sommeTotalPayer  . " FCFA"; ?> </h3>
 </div>
 <span class="float-right"><img src="assets/img/dash/dash-2.png" width="80" alt=""></span>
 </div>
 </div>
-<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-<div class="dash-widget dash-widget5">
-<span class="float-left"><img src="assets/img/dash/dash-3.png" alt="" width="80"></span>
-<div class="dash-widget-info text-right">
-<span>Total Sommes Non Payer</span>
-<h3>  <?php echo $sommeTotalPayer  . " FCFA"; ?> </h3>
-</div>
-</div>
-</div>
-<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+
+<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3  dashboard-item">
 <div class="dash-widget dash-widget5">
 <div class="dash-widget-info d-inline-block text-left">
 <span>Nombre De Paiement Effectuer</span>
@@ -183,6 +220,10 @@ $sommeTotalPayer = getSommesTotalPayer();
 </div>
 
   <!-- end  -->
+   <div style="align-items: center; justify-content:center; margin-left:40%; margin-top:-2%;">
+   <img src="./assets/image/logo.jpeg" alt="" width="220px;" height="180px;" >
+
+   </div>
 
 <script>
 	$('#manage-records').submit(function(e){
