@@ -165,7 +165,7 @@ while($row=$payments->fetch_array()){
 				</table>
 				<table width="100%">
 					<tr>
-						<td>Total Payable Scolaire</td>
+						<td>Total Année Scolaire</td>
 						<td class='text-right'><b><?php echo $ftotal ?></b></td>
 					</tr>
 					<tr>

@@ -26,7 +26,7 @@ foreach($user->fetch_array() as $k =>$v){
 			<label for="password">Mot de pass</label>
 			<input type="password" name="password" id="password" class="form-control" value="" autocomplete="off">
 			<?php if(isset($meta['id'])): ?>
-			<small><i>Leave this blank if you dont want to change the password.</i></small>
+			<small><i>Laissez ce champ vide si vous ne souhaitez pas modifier le mot de passe.</i></small>
 		<?php endif; ?>
 		</div>
 		<?php if(isset($meta['type']) && $meta['type'] == 3): ?>
@@ -36,7 +36,6 @@ foreach($user->fetch_array() as $k =>$v){
 		<div class="form-group">
 			<label for="type">Type d'utilisateur</label>
 			<select name="type" id="type" class="custom-select">
-				<option value="2" <?php echo isset($meta['type']) && $meta['type'] == 2 ? 'selected': '' ?>>Staff</option>
 				<option value="1" <?php echo isset($meta['type']) && $meta['type'] == 1 ? 'selected': '' ?>>Admin</option>
 			</select>
 		</div>
@@ -61,10 +60,11 @@ foreach($user->fetch_array() as $k =>$v){
 					setTimeout(function(){
 						location.reload()
 					},1500)
-				}else{
-					$('#msg').html(`<div class="alert alert-danger">Nom d'utilisateur existe déjà</div>`)
-					end_load()
 				}
+				// else{
+				// 	$('#msg').html(`<div class="alert alert-danger">Nom d'utilisateur existe déjà</div>`)
+				// 	end_load()
+				// }
 			}
 		})
 	})

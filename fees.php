@@ -27,7 +27,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<b>Liste des étudiants liées à une scolarité spécifique</b>
+						<b>Liste des élèves liées à une scolarité spécifique</b>
 						<span class="float:right"><a class="btn btn-primary btn-block btn-sm col-sm-2 float-right" href="javascript:void(0)" id="new_fees">
 					<i class="fa fa-plus"></i> Ajouter
 				</a></span>
@@ -37,7 +37,6 @@
 							<thead>
 								<tr>
 									<th class="text-center">#</th>
-									<th class="">Matricule paiement</th>
 									<th class="">Matricule Elève</th>
 									<th class="">Prenom</th>
 									<th class="">Nom</th>
@@ -61,9 +60,7 @@
 									<td>
 										<p> <b><?php echo $row['id_no'] ?></b></p>
 									</td>
-									<td>
-										<p> <b><?php echo $row['ef_no'] ?></b></p>
-									</td>
+									
 									<td>
 										<p> <b><?php echo ucwords($row['prenom']) ?></b></p>
 									</td>

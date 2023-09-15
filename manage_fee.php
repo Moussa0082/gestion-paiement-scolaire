@@ -6,7 +6,7 @@
         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
         <div class="form-group">
             <label for="" class="control-label">Enrollement NO ./ E.F. </label>
-            <input type="text" class="form-control" name="ef_no" id="ef_no" value="<?php echo isset($ef_no) ? $ef_no : '' ?>" readonly required>
+            <input type="text" class="form-control" name="ef_no" id="ef_no"  readonly required>
         </div>
         <div class="form-group">
             <label for="" class="control-label">Etudiant</label>
@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label for="" class="control-label">Frais</label>
-            <input type="text" class="form-control text-right" name="total_fee" value="<?php echo isset($total_fee) ? number_format($total_fee) : '' ?>" required readonly>
+            <input type="text" class="form-control text-right" name="total_fee" value="<?php echo isset($total_fee) ? $total_fee : '' ?>" required readonly>
         </div>
     </form>
 </div>
@@ -73,6 +73,14 @@
         // Appeler la fonction pour générer le matricule
         generateMatricule(firstName, lastName);
     })
+    $('#student_id').change(function () {
+    var selectedOption = $(this).find(':selected');
+    var studentId = selectedOption.val();
+
+    // Mettre à jour le champ de formulaire avec l'ID de l'élève sélectionné
+    $('[name="student_id"]').val(studentId);
+});
+
 
     $('#course_id').change(function () {
         var amount = $('#course_id option[value="' + $(this).val() + '"]').attr('data-amount');
@@ -81,6 +89,7 @@
         // Formater le montant sans virgule ni point
         $('[name="total_fee"]').val(amount.toLocaleString('en-US', { maximumFractionDigits: 0, minimumFractionDigits: 0 }));
     })
+    
 
     $('#manage-fees').submit(function (e) {
         e.preventDefault()

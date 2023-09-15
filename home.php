@@ -54,21 +54,6 @@ $sommeTotalPayer = getSommesTotalPayer();
 
 
 
-// function getTotalSommesNonPayer() {
-//     global $conn;
-
-       
-// $query = $conn->query('SELECT SUM(GRAND_TOTAL) AS total FROM invoice');
-               
-// $result = $query->fetch_assoc();
-                
-// return $result['total'];
-    
-// }
-
-// $total_somme = getTotalSommesNonPayer();
-
-
 
 
 
@@ -82,6 +67,7 @@ $sommeTotalPayer = getSommesTotalPayer();
     padding: 20px; /* Espace intérieur du conteneur */
     display: flex;
     margin-left: 20%;
+    width: auto;
     border: 1px solid #ddd;
      /* Bordure autour du conteneur */
     /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
@@ -90,6 +76,7 @@ $sommeTotalPayer = getSommesTotalPayer();
 
 /* Style des éléments du tableau de bord (col-md-6) */
 .dashboard-item {
+    background-color: #fff; 
     margin: 5px;
     margin-bottom: 20px; /* Espacement entre les éléments */
     padding: 20px; /* Espace intérieur des éléments */
@@ -177,7 +164,7 @@ $sommeTotalPayer = getSommesTotalPayer();
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo "Bienvenue dans L'ECOLE DE SOURCE DE LA SANTE DE BAMAKO  " . $_SESSION['login_name']."!"  ?>
+                    <?php echo "Bienvenue dans L'ECOLE FONDAMENTALE PRIVEE DIAN MALE  !"  ?>
                     <hr>
                 </div>
             </div>      			 
@@ -193,25 +180,25 @@ $sommeTotalPayer = getSommesTotalPayer();
 <div class="dash-widget dash-widget5">
 <span class="float-left"><img src="assets/img/dash/dash-1.png" alt="" width="80" ></span>
 <div class="dash-widget-info text-right">
-<span style="font-size: 15px;" >Total Elèves</span> 
-<h3 style="margin-top: 5px;">  <br> <?php echo $eleve; ?> </h3>
+<span style="font-size: 20px; margin-top: -1px; font-weight:bold;" >Total Elèves</span> 
+<h3 style="margin-top: 80px; margin-left:-10px;">  <?php echo $eleve; ?> </h3>
 </div>
 </div>
 </div>
 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3  dashboard-item"  >
 <div class="dash-widget dash-widget5">
 <div class="dash-widget-info text-left d-inline-block">
-<span style="font-size: 20px;"> Total Sommes Payer</span>
+<span style="font-size: 20px; font-weight:bold;"> Total Sommes Payer</span>
 <h3><?php echo $sommeTotalPayer  . " FCFA"; ?> </h3>
 </div>
-<span class="float-right"><img src="assets/img/dash/dash-2.png" width="80" alt=""></span>
+<span class="float-right"><img src="assets/img/dash/dash-4.png" width="80" alt=""></span>
 </div>
 </div>
 
 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3  dashboard-item">
 <div class="dash-widget dash-widget5">
 <div class="dash-widget-info d-inline-block text-left">
-<span>Nombre De Paiement Effectuer</span>
+<span  style="font-size: 20px; font-weight:bold;">Nombre De Paiement Effectuer</span>
 <h3><?php echo $paiements ?></h3>
 </div>
 <span class="float-right"><img src="assets/img/dash/dash-4.png" alt="" width="80"></span>
@@ -224,6 +211,8 @@ $sommeTotalPayer = getSommesTotalPayer();
    <img src="./assets/image/logo.jpeg" alt="" width="220px;" height="180px;" >
 
    </div>
+
+   
 
 <script>
 	$('#manage-records').submit(function(e){

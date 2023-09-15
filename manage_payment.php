@@ -28,7 +28,7 @@ if(isset($_GET['id'])){
 		</div>
 		 <div class="form-group">
             <label for="" class="control-label">Somme Total à Payer</label>
-            <input type="text" class="form-control text-right" id="balance"  value="" required readonly>
+            <input type="text" class="form-control text-right" id="balance"    required readonly>
         </div>
         <div class="form-group">
             <label for="" class="control-label">Montant Total Payer</label>

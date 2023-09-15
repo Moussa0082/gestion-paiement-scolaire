@@ -14,6 +14,7 @@ Class Action {
 	    $this->db->close();
 	    ob_end_flush();
 	}
+	
 
 	function login(){
 		extract($_POST);		
