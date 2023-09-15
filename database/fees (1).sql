@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 25 août 2023 à 19:29
+-- Généré le : ven. 15 sep. 2023 à 18:26
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -32,7 +32,7 @@ CREATE TABLE `courses` (
   `course` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `level` varchar(150) NOT NULL,
-  `total_amount` float NOT NULL,
+  `total_amount` int(11) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,9 +41,11 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `course`, `description`, `level`, `total_amount`, `date_created`) VALUES
-(1, 'Course 2', 'Sample', '1', 4500, '2020-10-31 11:01:15'),
-(2, 'IG', 'Informatique de gestion', '2', 30000, '2022-08-25 18:17:15'),
-(3, '1 ère Année', 'Un an', '1', 50000, '2023-08-25 18:29:49');
+(1, 'Course 2', 'Sample III VVVV', '2023-2024', 4500, '2020-10-31 11:01:15'),
+(2, 'IG', 'Informatique de gestion (IG)', '2023-2024', 30000, '2022-08-25 18:17:15'),
+(3, '1 ère Année', 'Un an', '1', 50000, '2023-08-25 18:29:49'),
+(4, '1 ère Année', 'une année', '2023-2024', 67500, '2023-09-11 16:43:26'),
+(5, '2 eme annéé', 'hebvhjbvevvvvvvvvvvvvvvv', '2023-2024', 200000, '2023-09-13 00:43:11');
 
 -- --------------------------------------------------------
 
@@ -54,8 +56,8 @@ INSERT INTO `courses` (`id`, `course`, `description`, `level`, `total_amount`, `
 CREATE TABLE `fees` (
   `id` int(30) NOT NULL,
   `course_id` int(30) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `amount` float NOT NULL
+  `description` text NOT NULL,
+  `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -66,7 +68,11 @@ INSERT INTO `fees` (`id`, `course_id`, `description`, `amount`) VALUES
 (1, 1, 'Tuition', 3000),
 (3, 1, 'sample', 1500),
 (4, 2, 'Annnuel', 30000),
-(5, 3, 'Mensuel', 50000);
+(5, 3, 'Mensuel', 50000),
+(6, 4, '1 ère tranche', 22500),
+(7, 4, '2 ème tranche', 22500),
+(8, 4, '3 ème tranche', 22500),
+(9, 5, 'hvbchj', 200000);
 
 -- --------------------------------------------------------
 
@@ -77,7 +83,7 @@ INSERT INTO `fees` (`id`, `course_id`, `description`, `amount`) VALUES
 CREATE TABLE `payments` (
   `id` int(30) NOT NULL,
   `ef_id` int(30) NOT NULL,
-  `amount` float NOT NULL,
+  `amount` int(11) NOT NULL,
   `remarks` text NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -89,10 +95,17 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`id`, `ef_id`, `amount`, `remarks`, `date_created`) VALUES
 (1, 1, 1000, 'sample', '2020-10-31 14:25:35'),
 (2, 1, 500, 'sample 2', '2020-10-31 14:47:15'),
-(3, 3, 25000, 'bien', '2022-08-25 18:19:47'),
+(3, 3, 25000, 'tres bien', '2023-09-14 22:16:11'),
 (4, 4, 20000, 'Première tranche', '2023-08-25 18:32:04'),
 (5, 4, 10000, 'deuxième tranche', '2023-08-25 18:33:55'),
-(6, 4, 20000, 'Troisième tranche', '2023-08-25 18:35:19');
+(6, 4, 20000, 'Troisième tranche', '2023-08-25 18:35:19'),
+(7, 1, 200, 'par chèque bancaire', '2023-09-09 23:14:35'),
+(8, 0, 0, '', '2023-09-10 15:44:57'),
+(11, 0, 0, '', '2023-09-11 00:01:01'),
+(12, 0, 0, '', '2023-09-11 00:01:31'),
+(13, 2, 600, 'dsnjefkjsnkfvvvvvvvvvvvvvvvvvvvvvvvvvvv', '2023-09-14 22:22:19'),
+(14, 1, 700, 'gsfgcsgvq', '2023-09-14 21:45:44'),
+(15, 9, 100000, 'trimestrielle', '2023-09-15 11:20:05');
 
 -- --------------------------------------------------------
 
@@ -103,10 +116,9 @@ INSERT INTO `payments` (`id`, `ef_id`, `amount`, `remarks`, `date_created`) VALU
 CREATE TABLE `student` (
   `id` int(30) NOT NULL,
   `id_no` varchar(100) NOT NULL,
-  `name` text NOT NULL,
+  `name` varchar(255) NOT NULL,
   `contact` varchar(100) NOT NULL,
-  `address` text NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -114,11 +126,18 @@ CREATE TABLE `student` (
 -- Déchargement des données de la table `student`
 --
 
-INSERT INTO `student` (`id`, `id_no`, `name`, `contact`, `address`, `email`, `date_created`) VALUES
-(1, '06232014', 'John Smith', '+18456-5455-55', 'Sample Address', 'jsmith@sample.com', '2020-10-31 11:24:42'),
-(2, '1415', 'George Wilson', '+18456-5455-55', 'Sample Address', 'gwilson@sample.com', '2020-10-31 11:29:38'),
-(3, 'MB8251', 'Bane', '82511723', 'New York', 'bane8251@gmail.com', '2023-02-09 01:14:23'),
-(4, 'AB', 'Aly Bah', '82511723', 'Sotuba', 'admin@gmail.com', '2023-08-25 18:28:29');
+INSERT INTO `student` (`id`, `id_no`, `name`, `contact`, `prenom`, `date_created`) VALUES
+(1, '06232014', 'John Smith', '+18456-5455-55', 'Sample Address', '2020-10-31 11:24:42'),
+(2, '1415', 'George Wilson', '+18456-5455-55', 'Sample Address', '2020-10-31 11:29:38'),
+(3, 'MB8251', 'Bane', '82511723', 'New York', '2023-02-09 01:14:23'),
+(4, 'GFATGFAGF', 'Aly', '82511723', 'MG', '2023-08-25 18:28:29'),
+(6, 'yfyu', 'gug', 'goiu', 'oui\r\n', '2023-09-09 00:01:50'),
+(8, 'fytf', 'fgy', 'gfyg', 'yfyuu', '2023-09-09 00:02:18'),
+(11, 'pohuv', 'gcg', 'chgvchg', ' hg', '2023-09-09 00:02:55'),
+(14, 'GGCGGVHV', 'hb jhbjhb', 'hjbjb', 'hv hgvhj', '2023-09-13 23:06:41'),
+(16, 'ASH645790', 'Sall', '652424452', 'Adama', '2023-09-15 11:13:42'),
+(17, 'tygdftdctr', 'gfvhg', 'vhg', 'gfytfytfy', '2023-09-15 11:14:53'),
+(18, 'Gfsrrsrfdtrd', 'gfcftc', 'gfg', 'gdtfcdftr', '2023-09-15 11:15:23');
 
 -- --------------------------------------------------------
 
@@ -131,7 +150,7 @@ CREATE TABLE `student_ef_list` (
   `student_id` int(30) NOT NULL,
   `ef_no` varchar(200) NOT NULL,
   `course_id` int(30) NOT NULL,
-  `total_fee` float NOT NULL,
+  `total_fee` int(11) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -143,7 +162,10 @@ INSERT INTO `student_ef_list` (`id`, `student_id`, `ef_no`, `course_id`, `total_
 (1, 2, '2020-654278', 1, 4500, '2020-10-31 12:04:18'),
 (2, 1, '2020-65427823', 1, 4500, '2020-10-31 13:12:13'),
 (3, 1, '00223', 2, 30000, '2022-08-25 18:18:09'),
-(4, 4, '002234', 3, 50000, '2023-08-25 18:31:15');
+(4, 4, '00223400', 3, 50000, '2023-08-25 18:31:15'),
+(7, 14, 'FCGFCGVCT12', 5, 200000, '2023-09-15 00:55:10'),
+(8, 6, 'OG202387', 5, 200000, '2023-09-15 01:00:42'),
+(9, 16, 'AS202354', 5, 200000, '2023-09-15 11:18:18');
 
 -- --------------------------------------------------------
 
@@ -242,31 +264,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `fees`
 --
 ALTER TABLE `fees`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `student_ef_list`
 --
 ALTER TABLE `student_ef_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `system_settings`
