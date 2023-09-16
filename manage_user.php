@@ -61,10 +61,10 @@ foreach($user->fetch_array() as $k =>$v){
 						location.reload()
 					},1500)
 				}
-				// else{
-				// 	$('#msg').html(`<div class="alert alert-danger">Nom d'utilisateur existe déjà</div>`)
-				// 	end_load()
-				// }
+				else{
+					$('#msg').html(`<div class="alert alert-danger">Nom d'utilisateur existe déjà</div>`)
+					end_load()
+				}
 			}
 		})
 	})

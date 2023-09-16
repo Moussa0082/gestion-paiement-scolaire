@@ -18,7 +18,7 @@ Class Action {
 
 	function login(){
 		extract($_POST);		
-		$qry = $this->db->query("SELECT * FROM users where username = '".$username."' and password = '".md5($password)."' ");
+		$qry = $this->db->query("SELECT * FROM users where username = '".$username."' and password = '".$password."' ");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'passwors' && !is_numeric($key))
@@ -32,7 +32,7 @@ Class Action {
 	function login2(){
 		
 		extract($_POST);		
-		$qry = $this->db->query("SELECT * FROM complainants where email = '".$email."' and password = '".md5($password)."' ");
+		$qry = $this->db->query("SELECT * FROM complainants where email = '".$email."' and password = '".$password."' ");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'passwors' && !is_numeric($key))
@@ -58,30 +58,57 @@ Class Action {
 		header("location:../index.php");
 	}
 
-	function save_user(){
+	// function save_user(){
+	// 	extract($_POST);
+	// 	$data = " name = '$name' ";
+	// 	$data .= ", username = '$username' ";
+	// 	if(!empty($password))
+	// 	$data .= ", password = '".md5($password)."' ";
+	// 	$data .= ", type = '$type' ";
+	// 	if($type == 1)
+	// 		$establishment_id = 0;
+	// 	$data .= ", establishment_id = '$establishment_id' ";
+	// 	$chk = $this->db->query("Select * from users where username = '$username' and id !='$id' ")->num_rows;
+	// 	if($chk > 0){
+	// 		return 2;
+	// 		exit;
+	// 	}
+	// 	if(empty($id)){
+	// 		$save = $this->db->query("INSERT INTO users set ".$data);
+	// 	}else{
+	// 		$save = $this->db->query("UPDATE users set ".$data." where id = ".$id);
+	// 	}
+	// 	if($save){
+	// 		return 1;
+	// 	}
+	// }
+
+
+	function save_user() {
 		extract($_POST);
 		$data = " name = '$name' ";
 		$data .= ", username = '$username' ";
-		if(!empty($password))
-		$data .= ", password = '".md5($password)."' ";
+		$data .= ", password = '$password' "; // Ne pas crypter le mot de passe
 		$data .= ", type = '$type' ";
-		if($type == 1)
+		if ($type == 1)
 			$establishment_id = 0;
 		$data .= ", establishment_id = '$establishment_id' ";
-		$chk = $this->db->query("Select * from users where username = '$username' and id !='$id' ")->num_rows;
-		if($chk > 0){
+		$chk = $this->db->query("SELECT * FROM users WHERE username = '$username' AND id != '$id'")->num_rows;
+		if ($chk > 0) {
 			return 2;
 			exit;
 		}
-		if(empty($id)){
-			$save = $this->db->query("INSERT INTO users set ".$data);
-		}else{
-			$save = $this->db->query("UPDATE users set ".$data." where id = ".$id);
+		if (empty($id)) {
+			$save = $this->db->query("INSERT INTO users SET " . $data);
+		} else {
+			$save = $this->db->query("UPDATE users SET " . $data . " WHERE id = " . $id);
 		}
-		if($save){
+		if ($save) {
 			return 1;
 		}
 	}
+
+
 	function delete_user(){
 		extract($_POST);
 		$delete = $this->db->query("DELETE FROM users where id = ".$id);
