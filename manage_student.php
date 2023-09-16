@@ -44,7 +44,7 @@ foreach($qry->fetch_array() as $k => $val){
         <div id="msg" class="form-group"></div>
         <div class="form-group">
             <label for="" class="control-label">Matricule .</label>
-            <input type="text" class="form-control" name="id_no" id="id_no" <?php echo $matricule ?>  value="<?php echo isset($id_no) ? $id_no :$matricule ?>" required  >
+            <input type="text" class="form-control" name="id_no" id="id_no" <?php echo $matricule ?>  value="<?php echo isset($id_no) ? $id_no :$matricule ?>"  required  readonly>
         </div>
         <div class="form-group">
             <label for="" class="control-label">Prenom</label>
