@@ -12,6 +12,8 @@ var studentTable = document.getElementById('studentTable');
 searchInput.addEventListener('input', function () {
     var searchValue = searchInput.value.trim().toLowerCase();
 
+   
+
     // Parcourez les lignes du tableau et masquez celles qui ne correspondent pas à la recherche
     var rows = studentTable.querySelectorAll('tbody tr');
     rows.forEach(function (row) {
@@ -30,3 +32,6 @@ searchInput.addEventListener('input', function () {
         }
     });
 });
+
+
+

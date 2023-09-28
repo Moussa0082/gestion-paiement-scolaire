@@ -121,19 +121,65 @@
 
 
 <script>
-document.getElementById('printButton').addEventListener('click', function () {
+// document.getElementById('printButton').addEventListener('click', function () {
+//     var printWindow = window.open('imprimer_liste_eleves.php', '_blank', 'width=800,height=600');
+//     printWindow.document.addEventListener('DOMContentLoaded', function () {
+//         // Ajoutez le bouton d'impression personnalisé à la page d'impression
+//         var printButton = printWindow.document.createElement('button');
+//         printButton.textContent = 'Imprimer';
+//         printButton.className = 'btn btn-primary';
+//         printButton.addEventListener('click', function () {
+//             printWindow.print();
+//         });
+//         printWindow.document.body.appendChild(printButton);
+
+//     });
+// });
+// document.getElementById('printButton').addEventListener('click', function () {
+//     var printWindow = window.open('imprimer_liste_eleves.php', '_blank', 'width=800,height=600');
+//     printWindow.document.addEventListener('DOMContentLoaded', function () {
+//         // Ajoutez le bouton d'impression personnalisé à la page d'impression
+//         var printButton = printWindow.document.createElement('button');
+//         printButton.textContent = 'Imprimer';
+//         printButton.className = 'btn btn-primary';
+//         printButton.addEventListener('click', function () {
+//             printWindow.print();
+//         });
+//         printWindow.document.body.appendChild(printButton);
+
+//         // Masquer les éléments que vous ne souhaitez pas imprimer
+//         var elementsToHide = printWindow.document.querySelectorAll('#headr,#footer');
+//         elementsToHide.forEach(function (element) {
+//             element.style.display = 'none';
+//         });
+//     });
+// });
+
+</script>
+<script>
+	$('#printButton').click(function(){
+    // Ouvrir une nouvelle fenêtre pop-up
     var printWindow = window.open('imprimer_liste_eleves.php', '_blank', 'width=800,height=600');
-    printWindow.document.addEventListener('DOMContentLoaded', function () {
-        // Ajoutez le bouton d'impression personnalisé à la page d'impression
+
+    // Attacher un gestionnaire d'événements une fois que la nouvelle fenêtre est chargée
+    printWindow.addEventListener('load', function () {
+        // Ajoutez le bouton d'impression personnalisé à la nouvelle fenêtre
         var printButton = printWindow.document.createElement('button');
         printButton.textContent = 'Imprimer';
         printButton.className = 'btn btn-primary';
         printButton.addEventListener('click', function () {
             printWindow.print();
         });
-        printWindow.document.body.appendChild(printButton);
+        // printWindow.document.body.appendChild(printButton);
+
+        // Masquer les éléments que vous ne souhaitez pas imprimer dans la nouvelle fenêtre
+        var elementsToHide = printWindow.document.getElementById('footer');
+        elementsToHide.forEach(function (element) {
+            element.style.display = 'none';
+        });
     });
 });
+
 </script>
 
 
@@ -141,6 +187,10 @@ document.getElementById('printButton').addEventListener('click', function () {
 	$(document).ready(function(){
 		$('table').dataTable()
 	})
+	$('#printButton').click(function () {
+    $('#printModal').modal('show').find('.modal-body').load('imprimer_liste_eleves.php');
+});
+
 	
 	$('.view_payment').click(function(){
 		uni_modal("Details Paiement","view_payment.php?ef_id="+$(this).attr('data-id')+"&pid=0","mid-large")

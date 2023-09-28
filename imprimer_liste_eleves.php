@@ -8,15 +8,7 @@ $titre = isset($_GET['searchInput']) ? "Liste des paiement de " . $_GET['searchI
 include('db_connect.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>impression</title>
-    <!-- Incluez vos styles CSS et tout autre contenu nécessaire pour l'impression -->
-    <link rel="stylesheet" href="votre_style.css">
+
     
     <style>
 
@@ -39,6 +31,17 @@ include('db_connect.php');
     }
  
         @media print {
+
+            #header {
+        display: none;
+        }
+
+
+/* Masquer les éléments dans le pied de page lors de l'impression */   
+  #footer {
+        display: none;
+    }
+
     table.print-table {
         border-collapse: collapse;
         width: 100%;
@@ -92,10 +95,16 @@ table{
     height:20px;
     margin-top:5px;
    }
+
+    
+
+
     </style>
     
-</head>
-<body>
+    <header id="header">
+
+
+    </header>
     <!-- Ajoutez le titre dynamique à votre page d'impression -->
     <h1 style="justify-content:center; display:flex;">
         <?php
@@ -114,7 +123,7 @@ table{
     <div class="entete">
         
         <!-- Ajoutez un bouton de retour ou d'impression supplémentaire si nécessaire -->
-        <button class="btn" onclick="window.print()">Imprimer</button>
+        <button class="btn" id="btn" onclick="window.print()">Imprimer</button>
         
         </div>
         
@@ -188,14 +197,13 @@ table{
 <!-- </table> -->
     </table>
 
-     <div id="footer">
+     <footer id="footer">
 
+     
     
-     </div>
-
+     </footer>
 
   
      <script src="mp.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</body>
-</html>
+
