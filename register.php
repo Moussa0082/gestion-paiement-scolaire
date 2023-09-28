@@ -109,7 +109,7 @@ $conn->close();
   							<label for="password"  class="control-label">Mot de passe</label>
   							<input type="password" name="password" id="password" name="password" class="form-control">
   						</div>
-  						<center><button type="submit" name="submit" class="btn-sm btn-block btn-wave col-md-4 btn-primary">Se connecter</button></center>
+  						<center><button type="submit" name="submit" class="btn-sm btn-block btn-wave col-md-4 btn-primary">Créer un compte</button></center>
   					</form>
   				</div>
   			</div>
