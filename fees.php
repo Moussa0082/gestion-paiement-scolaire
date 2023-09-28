@@ -11,6 +11,7 @@
   padding: 10px;
   cursor:pointer;
 }
+
 </style>
 <div class="container-fluid">
 	
@@ -28,6 +29,8 @@
 				<div class="card">
 					<div class="card-header">
 						<b>Liste des élèves liées à une scolarité spécifique</b>
+						<button class="btn btn-primary btn-block btn-sm col-sm-2" id="printButton">Imprimer</button>
+
 						<span class="float:right"><a class="btn btn-primary btn-block btn-sm col-sm-2 float-right" href="javascript:void(0)" id="new_fees">
 					<i class="fa fa-plus"></i> Ajouter
 				</a></span>
@@ -115,6 +118,25 @@
 		max-height: 150px;
 	}
 </style>
+
+
+<script>
+document.getElementById('printButton').addEventListener('click', function () {
+    var printWindow = window.open('imprimer_liste_eleves.php', '_blank', 'width=800,height=600');
+    printWindow.document.addEventListener('DOMContentLoaded', function () {
+        // Ajoutez le bouton d'impression personnalisé à la page d'impression
+        var printButton = printWindow.document.createElement('button');
+        printButton.textContent = 'Imprimer';
+        printButton.className = 'btn btn-primary';
+        printButton.addEventListener('click', function () {
+            printWindow.print();
+        });
+        printWindow.document.body.appendChild(printButton);
+    });
+});
+</script>
+
+
 <script>
 	$(document).ready(function(){
 		$('table').dataTable()
