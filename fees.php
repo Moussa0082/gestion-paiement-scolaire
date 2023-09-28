@@ -12,6 +12,8 @@
   cursor:pointer;
 }
 
+ 
+
 </style>
 <div class="container-fluid">
 	
@@ -29,11 +31,16 @@
 				<div class="card">
 					<div class="card-header">
 						<b>Liste des élèves liées à une scolarité spécifique</b>
-						<button class="btn btn-primary btn-block btn-sm col-sm-2" id="printButton">Imprimer</button>
+						
 
-						<span class="float:right"><a class="btn btn-primary btn-block btn-sm col-sm-2 float-right" href="javascript:void(0)" id="new_fees">
-					<i class="fa fa-plus"></i> Ajouter
-				</a></span>
+						
+						 <div class="impr" style="justify-content:space-beetwen;">
+
+							 <button class="btn btn-primary btn-block btn-sm col-sm-2" id="printButton" style="margin-top:25px;">Imprimer</button>
+							 <span class="float:right"><a class="btn btn-primary btn-block btn-sm col-sm-2 float-right" style="margin-top:-20px;" href="javascript:void(0)" id="new_fees">
+								 <i class="fa fa-plus"></i> Ajouter
+								</a></span>
+							</div>
 					</div>
 					<div class="card-body">
 						<table class="table table-condensed table-bordered table-hover">
