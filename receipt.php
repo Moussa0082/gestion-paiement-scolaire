@@ -80,7 +80,7 @@ while($row=$payments->fetch_array()){
 			
 		</div>
 		<div class="text-droite">
-			<strong style="color: green; margin-left:45%; margin-top: -60px;">EFDM (Ecole Fondamentale Privée Dian Male)</strong>
+			<strong style="color: green; margin-left:45%; margin-top: -60px;">EFDM (Ecole Fondamentale Privée Dian Malle)</strong>
 			<span style="color: red; text-transform:uppercase; margin-left:48%; margin-top: -10px; " >Travail-Discipline-Perseverence</span>
 			</div>
 
@@ -180,6 +180,10 @@ while($row=$payments->fetch_array()){
 			</td>			
 		</tr>
 	</table>
+</div>
+
+<div class="recu" style="  margin-top:10px; margin-left:80%;">
+	<h3 style="font-weight:bold;">La promotrice</h3>
 </div>
 
 <div id="footer">

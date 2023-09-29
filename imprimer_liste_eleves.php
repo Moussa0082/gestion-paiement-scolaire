@@ -2,7 +2,7 @@
 
 <?php
 // Récupérez le titre dynamique en fonction de la recherche (à adapter selon votre logique)
-$titre = isset($_GET['searchInput']) ? "Liste des paiement de " . $_GET['searchInput'] : "Liste des paiement";
+$titre = isset($_GET['searchInput']) ? "Liste des paiements de " . $_GET['searchInput'] : "Liste de paiements";
 
 // Incluez le fichier de connexion à la base de données et tout autre code nécessaire
 include('db_connect.php');
