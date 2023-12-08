@@ -39,6 +39,10 @@ $plage_annees = "$annee_actuelle-$annee_suivante";
                 <input type="text" class="form-control" name="course"  value="<?php echo isset($course) ? $course :'' ?>" required>
             </div>
             <div class="form-group">
+                <label for="" class="control-label">Classe</label>
+                <input type="number" class="form-control" name="frais"  value="<?php echo isset($frais) ? $frais :'' ?>" required>
+            </div>
+            <div class="form-group">
                 <label for="" class="control-label">Année Scolaire</label>
                 <input type="text" class="form-control" name="level"  value="<?php echo $plage_annees ?>" required>
             </div>

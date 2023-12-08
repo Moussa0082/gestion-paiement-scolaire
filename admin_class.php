@@ -373,4 +373,36 @@ Class Action {
 			return 1;
 		}
 	}
+	function save_payments(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k, array('id')) && !is_numeric($k)){
+				if($k == 'amount'){
+					$v = str_replace(',', '', $v);
+				}
+				if(empty($data)){
+					$data .= " $k='$v' ";
+				}else{
+					$data .= ", $k='$v' ";
+				}
+			}
+		}
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO student_inscription set $data");
+			if($save)
+				$id= $this->db->insert_id;
+		}else{
+			$save = $this->db->query("UPDATE student_inscription set $data where id = $id");
+		}
+		if($save)
+			return json_encode(array('ef_id'=>$ef_id, 'pid'=>$id,'status'=>1));
+	}
+	function delete_payments(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM student_inscription where id = ".$id);
+		if($delete){
+			return 1;
+		}
+	}
 }

@@ -4,7 +4,7 @@ $fees = $conn->query("SELECT ef.*,s.prenom, s.name as sname,s.id_no,concat(c.cou
 foreach($fees->fetch_array() as $k => $v){
 	$$k= $v;
 }
-$payments = $conn->query("SELECT * FROM payments where ef_id = $id ");
+$payments = $conn->query("SELECT * FROM student_inscription where ef_id = $id ");
 $pay_arr = array();
 while($row=$payments->fetch_array()){
 	$pay_arr[$row['id']] = $row;
@@ -95,31 +95,6 @@ while($row=$payments->fetch_array()){
 	<hr>
 	<div class="flex">
 		<div class="w-50">
-     
-			<p>Reçu n°: <b><?php 
-			session_start();
-
-			// Fonction pour générer le matricule
-			function generateMatricule() {
-				// Obtenez l'année actuelle
-				$currentYear = date("Y");
-				$month = date("m");
-				$day = date("d");
-				
-				// Incrémentez l'index stocké en session
-				$_SESSION['index'] = isset($_SESSION['index']) ? ($_SESSION['index'] + 1) : 1;
-			
-				// Concaténez les éléments pour former le matricule (DM + année + mois + jour + index)
-				$matricule =  $currentYear . $month . $day . $_SESSION['index']-1;
-				
-				// Retournez le matricule généré
-				return $matricule;
-			}
-			
-			// Exemple d'utilisation de la fonction pour générer un matricule
-			$matricule = generateMatricule();
-			echo $matricule
-			?></b></p>
 			<p>Matricule: <b><?php echo $ef_no ?></b></p>
 			<p>Etudiant: <b><?php echo ucwords($prenom . " ". $sname )  ?></b></p>
 			<p>Classe: <b><?php echo $class ?></b></p>
@@ -128,7 +103,6 @@ while($row=$payments->fetch_array()){
 		<div class="w-50">
 			<p>Date paiement: <b><?php echo isset($pay_arr[$_GET['pid']]) ? date(" M d, Y",strtotime($pay_arr[$_GET['pid']]['date_created'])): '' ?></b></p>
 			<p>Montant payer: <b><?php echo isset($pay_arr[$_GET['pid']]) ? $pay_arr[$_GET['pid']]['amount']: '' ?></b></p>
-			<p>Remarque: <b><?php echo isset($pay_arr[$_GET['pid']]) ? $pay_arr[$_GET['pid']]['remarks']: '' ?></b></p>
 		</div>
 		<?php endif; ?>
 	</div>
@@ -145,7 +119,7 @@ while($row=$payments->fetch_array()){
 						<td width="50%" class='text-right'>Montant</td>
 					</tr>
 					<?php 
-				$cfees = $conn->query("SELECT * FROM fees where course_id = $course_id");
+				$cfees = $conn->query("SELECT * FROM courses where course_id = $course_id");
 				$ftotal = 0;
 				while ($row = $cfees->fetch_assoc()) {
 					$ftotal += $row['amount'];
@@ -191,17 +165,14 @@ while($row=$payments->fetch_array()){
 				</table>
 				<table width="100%">
 					<tr>
-						<td>Total Année Scolaire</td>
-						<td class='text-right'><b><?php echo $ftotal ?></b></td>
+						<td>Total Frais D'inscription</td>
+						<td class='text-right'><b><?php echo $row['frais']?></b></td>
 					</tr>
 					<tr>
 						<td>Total Payer</td>
 						<td class='text-right'><b><?php echo $ptotal ?></b></td>
 					</tr>
-					<tr>
-						<td>Somme restant</td>
-						<td class='text-right'><b><?php echo $ftotal-$ptotal ?></b></td>
-					</tr>
+				
 				</table>
 			</td>			
 		</tr>

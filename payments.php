@@ -30,73 +30,77 @@
 									<th class="text-center">Action</th>
 								</tr>
 							</thead>
-							<tbody>
-								<?php 
-								$i = 1;
-								
-								$payments = $conn->query("SELECT p.*, s.prenom, ' ', s.name as sname, ef.ef_no, s.id_no, c.course
-								FROM payments p
-								INNER JOIN student_ef_list ef ON ef.id = p.ef_id
-								INNER JOIN student s ON s.id = ef.student_id
-								INNER JOIN courses c ON c.id = ef.course_id
-								ORDER BY unix_timestamp(p.date_created) DESC");
-								// $payments = $conn->query("SELECT p.*,s.prenom, ' ', s.name as sname, ef.ef_no,s.id_no FROM payments p inner join student_ef_list ef on ef.id = p.ef_id inner join student s on s.id = ef.student_id order by unix_timestamp(p.date_created) desc ");
-								if($payments->num_rows > 0):
-								while($row=$payments->fetch_assoc()):
-									$paid = $conn->query("SELECT sum(amount) as paid FROM payments where ef_id=".$row['id']);
-									$paid = $paid->num_rows > 0 ? $paid->fetch_array()['paid']:'';
-								?>
-								<tr>
-									<td class="text-center"><?php echo $i++ ?></td>
-									<td>
-														<p><b><?php 
-						setlocale(LC_TIME, 'fr_FR');
-						date_default_timezone_set('Europe/Paris');
-						$date_created = strtotime($row['date_created']);
-						$date_formatted = strftime("%d %B %Y %H:%M", $date_created);
-						// echo strftime("%d %B %Y %H:%M", strtotime($row['date_created']))
-						echo $date_formatted
-					?></b></p>
+							<?php
+// Inclure le fichier de connexion à la base de données
+include 'db_connect.php';
 
+// Requête pour trouver les étudiants n'ayant pas encore payé ce mois-ci
+$unpaidStudentsQuery = "SELECT ef.id, ef.student_id
+                        FROM student_ef_list ef
+                        LEFT JOIN payments p ON ef.id = p.ef_id AND MONTH(p.date_created) = MONTH(CURRENT_DATE())
+                        WHERE p.id IS NULL";
 
-									</td>
-									<td>
-										<p> <b><?php echo $row['id_no'] ?></b></p>
-									</td>
-									<td>
-										<p> <b><?php echo $row['ef_no'] ?></b></p>
-									</td>
-									<td>
-											<p> <b><?php echo ucwords($row['prenom']) ?></b></p>
-									</td>
-									
-									<td>
-										<p> <b><?php echo ucwords($row['sname']) ?></b></p>
-									</td>
-									<td>
-										<p> <b><?php echo ucwords($row['course']) ?></b></p>
-									</td>
-									<td class="text-right">
-										<p> <b><?php echo $row['amount'] ?></b></p>
-									</td>
-									<td class="text-center">
-										<button class="btn btn-sm btn-outline-primary view_payment" type="button" data-id="<?php echo $row['id'] ?>" data-ef_id="<?php echo $row['ef_id'] ?>">Aperçu</button>
-										<button class="btn btn-sm btn-outline-primary edit_payment" type="button" data-id="<?php echo $row['id'] ?>" >Modifier</button>
-										<button class="btn btn-sm btn-outline-danger delete_payment" type="button" data-id="<?php echo $row['id'] ?>">Supprimer</button>
-									</td>
-								</tr>
-								<?php 
-									endwhile; 
-									else:
-								?>
-								<tr>
-									<th class="text-center" colspan="7">Aucun données.</th>
-								</tr>
-								<?php
-									endif;
+$unpaidStudentsResult = $conn->query($unpaidStudentsQuery);
 
-								?>
-							</tbody>
+// Insérer les enregistrements pour les étudiants non payants
+while ($row = $unpaidStudentsResult->fetch_assoc()) {
+    $insertPaymentQuery = "INSERT INTO payments (ef_id, amount, remarks, date_created)
+                           VALUES ({$row['id']}, 0, 'Non payer', CURRENT_TIMESTAMP())";
+
+    $conn->query($insertPaymentQuery);
+}
+
+// Requête pour récupérer la liste des paiements
+$paymentsQuery = "SELECT p.*, s.prenom, ' ', s.name as sname, ef.ef_no, s.id_no, c.course
+                  FROM payments p
+                  INNER JOIN student_ef_list ef ON ef.id = p.ef_id
+                  INNER JOIN student s ON s.id = ef.student_id
+                  INNER JOIN courses c ON c.id = ef.course_id
+                  ORDER BY unix_timestamp(p.date_created) ASC";
+
+// Exécuter la requête
+$paymentsResult = $conn->query($paymentsQuery);
+
+?>
+
+<!-- Affichage des paiements dans le tableau -->
+<tbody>
+    <?php 
+    $i = 1;
+
+    if($paymentsResult->num_rows > 0):
+        while($row = $paymentsResult->fetch_assoc()):
+            $date_created = strtotime($row['date_created']);
+            $date_formatted = strftime("%d %B %Y %H:%M", $date_created);
+            $amount = $row['amount'];
+
+    ?>
+    <tr>
+        <td class="text-center"><?php echo $i++ ?></td>
+        <td><p><b><?php echo $date_formatted ?></b></p></td>
+        <td><p><b><?php echo $row['id_no'] ?></b></p></td>
+        <td><p><b><?php echo $row['ef_no'] ?></b></p></td>
+        <td><p><b><?php echo ucwords($row['prenom']) ?></b></p></td>
+        <td><p><b><?php echo ucwords($row['sname']) ?></b></p></td>
+        <td><p><b><?php echo ucwords($row['course']) ?></b></p></td>
+        <td class="text-right"><p><b><?php echo $amount>0 ? $amount : "Non payer" ?></b></p></td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-outline-primary view_payment" type="button" data-id="<?php echo $row['id'] ?>" data-ef_id="<?php echo $row['ef_id'] ?>">Aperçu</button>
+            <button class="btn btn-sm btn-outline-primary edit_payment" type="button" data-id="<?php echo $row['id'] ?>" >Modifier</button>
+            <button class="btn btn-sm btn-outline-danger delete_payment" type="button" data-id="<?php echo $row['id'] ?>">Supprimer</button>
+        </td>
+    </tr>
+    <?php 
+        endwhile; 
+    else:
+    ?>
+    <tr>
+        <th class="text-center" colspan="7">Aucun données.</th>
+    </tr>
+    <?php
+    endif;
+    ?>
+</tbody>
 						</table>
 					</div>
 				</div>

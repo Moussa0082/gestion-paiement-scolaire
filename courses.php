@@ -40,6 +40,7 @@
 									<th class="text-center">#</th>
 									<th class="">Date de création</th>
 									<th class="">Classe</th>
+									<th class="">Frais D'inscription</th>
 									<th class="">Description</th>
 									<th class="">Total Scoalarité</th>
 									<th class="text-center">Action</th>
@@ -58,6 +59,9 @@
 									</td>
 									<td>
 										<p> <b><?php echo $row['course'] . " - " . $row['level'] ?></b></p>
+									</td>
+									<td>
+										<p> <b><?php echo $row['frais'] ?></b></p>
 									</td>
 									<td class="">
 										 <p><small><i><b><?php echo $row['description'] ?></i></small></p>

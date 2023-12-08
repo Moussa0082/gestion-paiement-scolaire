@@ -33,6 +33,27 @@
 						<b>Liste des élèves liées à une scolarité spécifique</b>
 						
 
+						<div style="display:flex; margin-left: 400px; font-size:20px; margin-top:-20px;" >Somme total payable 
+						<!-- <script>document.write(new Date().getFullYear() 
+						+ " " + (new Date().getFullYear() + 1) )</script>  -->
+						  <?php
+    // Assuming $conn is your database connection
+    $currentYear = date("Y");
+    $nextYear = $currentYear + 1;
+
+    $query = "SELECT SUM(total_fee) AS total_sum FROM student_ef_list";
+    $result = $conn->query($query);
+
+    if ($result) {
+        $row = $result->fetch_assoc();
+        $totalAnnuel = $row['total_sum'];
+
+        echo $totalAnnuel ? " : " . $totalAnnuel . " FCFA <br> (pour les années $currentYear - $nextYear)" : 0;
+    } else {
+        echo "Erreur lors de la requête SQL : " . $conn->error;
+    }
+    ?>
+					</div>
 						
 						 <div class="impr" style="justify-content:space-beetwen;">
 
@@ -47,6 +68,7 @@
 							<thead>
 								<tr>
 									<th class="text-center">#</th>
+									<!-- <th class="">Date</th> -->
 									<th class="">Matricule Elève</th>
 									<th class="">Prenom</th>
 									<th class="">Nom</th>
@@ -68,7 +90,7 @@
 								// $fees = $conn->query("SELECT ef.*,s.prenom, s.name as sname,s.id_no FROM student_ef_list ef inner join student s on s.id = ef.student_id order by s.name asc ");
 								while($row=$fees->fetch_assoc()):
 									$paid = $conn->query("SELECT sum(amount) as paid FROM payments where ef_id=".$row['id']);
-									$paid = $paid->num_rows > 0 ? $paid->fetch_array()['paid']:'';
+									$paid = $paid->num_rows > 0 ? $paid->fetch_array()['paid']: 0;
 									$balance = $row['total_fee'] - $paid;
 								?>
 								<tr>
@@ -90,7 +112,7 @@
 										<p> <b><?php echo $row['total_fee'] ?></b></p>
 									</td>
 									<td class="text-right">
-										<p> <b><?php echo $paid ?></b></p>
+										<p> <b><?php echo $paid>0  ? $paid : 'Rien payer' ?></b></p>
 
 									<td class="text-right">
 										<p> <b><?php echo $balance ?></b></p>
