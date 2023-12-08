@@ -17,7 +17,7 @@
 				<a href="index.php?page=fees" class="nav-item nav-fees"><span class='icon-field'><i class="fa fa-money-check "></i></span> Associer à une scolarité</a>
 				<!-- <a href="index.php?page=liste-students" class="nav-item nav-fees"><span class='icon-field'><i class="fa fa-money-check "></i></span> Liste des élèves associer à une scolarité</a> -->
 				
-				<a href="index.php?page=inscription" class="nav-item nav-payments"><span class='icon-field'><i class="fa fa-receipt "></i></span> Paiement Frais D'inscription</a>
+				<!-- <a href="index.php?page=inscription" class="nav-item nav-payments"><span class='icon-field'><i class="fa fa-receipt "></i></span> Paiement Frais D'inscription</a> -->
 				<a href="index.php?page=payments" class="nav-item nav-payments"><span class='icon-field'><i class="fa fa-receipt "></i></span> Paiement Frais Scolaire</a>
 				<a href="index.php?page=courses" class="nav-item nav-courses"><span class='icon-field'><i class="fa fa-scroll "></i></span> Cours & Scolarité</a>
 				<div class="mx-2 text-white">Rapport</div>
