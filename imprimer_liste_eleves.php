@@ -240,6 +240,30 @@ table{
         totalPaidElement.textContent = totalPaid.toFixed(0);
         totalBalanceElement.textContent = totalBalance.toFixed(0);
     });
+
+
+     // Trier les lignes par prénom avant de les ajouter au tableau
+     sortedRows.sort((a, b) => {
+            const nameA = a.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+            const nameB = b.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+
+        // Mettre à jour le tableau avec les lignes triées
+        const tbody = document.getElementById('studentTable').querySelector('tbody');
+        tbody.innerHTML = ''; // Effacer le contenu actuel du tbody
+
+        sortedRows.forEach(row => {
+            tbody.appendChild(row); // Ajouter chaque ligne triée au tbody
+        });
+
+        // Mettre à jour les totaux
+        const totalBalance = totalFees - totalPaid;
+        totalFeesElement.textContent = totalFees.toFixed(0);
+        totalPaidElement.textContent = totalPaid.toFixed(0);
+        totalBalanceElement.textContent = totalBalance.toFixed(0);
+    
+
 </script>
 
 
