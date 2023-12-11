@@ -190,10 +190,10 @@ table{
             </td>
         </tr>
     <?php endwhile; ?>
-</tbody>
+ </tbody>
 <tfoot>
 <tr>
-            <th colspan="5" class="text-right">Total:</th>
+            <th colspan="5" class="text-right">Total élèves: <strong id="totalStudents"></strong> </th>
             <th class="text-right" id="totalFees"><?php echo $totalFees; ?></th>
             <th class="text-right" id="totalPaid"><?php echo $totalPaid; ?></th>
             <th class="text-right" id="totalBalance"><?php echo $totalFees - $totalPaid; ?></th>
@@ -211,44 +211,73 @@ table{
      <script src="mp.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script>
-    const totalFeesElement = document.getElementById('totalFees');
-    const totalPaidElement = document.getElementById('totalPaid');
-    const totalBalanceElement = document.getElementById('totalBalance');
 
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const searchText = this.value.toLowerCase();
-        const rows = document.querySelectorAll('#studentTable tbody tr');
+      
+      const totalFeesElement = document.getElementById('totalFees');
+      const totalPaidElement = document.getElementById('totalPaid');
+      const totalBalanceElement = document.getElementById('totalBalance');
+        const totalStudentsElement = document.getElementById('totalStudents');
 
-        let totalFees = 0;
-        let totalPaid = 0;
+        function updateTotals() {
+    const rows = document.querySelectorAll('#studentTable tbody tr');
 
-        rows.forEach(row => {
-            const studentName = row.querySelector('td:nth-child(3) b').textContent.toLowerCase();
-            const studentClasse = row.querySelector('td:nth-child(5) b').textContent.toLowerCase();
-            const fees = parseInt(row.querySelector('td:nth-child(6) p b').textContent);
-            const paid = parseInt(row.querySelector('td:nth-child(7) p b').textContent);
+    let totalFees = 0;
+    let totalPaid = 0;
+    let totalStudents = 0;
 
-            if (studentName.includes(searchText) || studentClasse.includes(searchText)) {
-                totalFees += fees;
-                totalPaid += paid;
-            }
-        });
+    rows.forEach(row => {
+        const fees = parseInt(row.querySelector('td:nth-child(6) p b').textContent);
+        const paid = parseInt(row.querySelector('td:nth-child(7) p b').textContent);
 
-        const totalBalance = totalFees - totalPaid;
-
-        totalFeesElement.textContent = totalFees.toFixed(0);
-        totalPaidElement.textContent = totalPaid.toFixed(0);
-        totalBalanceElement.textContent = totalBalance.toFixed(0);
+        totalFees += fees;
+        totalPaid += paid;
+        totalStudents++;
     });
 
+    const totalBalance = totalFees - totalPaid;
+
+    totalFeesElement.textContent = totalFees.toFixed(0);
+    totalPaidElement.textContent = totalPaid.toFixed(0);
+    totalBalanceElement.textContent = totalBalance.toFixed(0);
+    totalStudentsElement.textContent = totalStudents;
+}
+ updateTotals();
+   document.getElementById('searchInput').addEventListener('input', function () {
+    const searchText = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#studentTable tbody tr');
+
+    let totalFees = 0;
+    let totalPaid = 0;
+    let totalStudents = 0;
+    
+    rows.forEach(row => {
+        const studentName = row.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+        const studentClasse = row.querySelector('td:nth-child(5) b').textContent.toLowerCase();
+        const fees = parseInt(row.querySelector('td:nth-child(6) p b').textContent);
+        const paid = parseInt(row.querySelector('td:nth-child(7) p b').textContent);
+        
+        if (studentName.includes(searchText) || studentClasse.includes(searchText)) {
+            totalFees += fees;
+            totalPaid += paid;
+            totalStudents ++;
+        }
+    });
+
+    const totalBalance = totalFees - totalPaid;
+
+    totalFeesElement.textContent = totalFees.toFixed(0);
+    totalPaidElement.textContent = totalPaid.toFixed(0);
+    totalBalanceElement.textContent = totalBalance.toFixed(0);
+    totalStudentsElement.textContent = totalStudents; // Mettez à jour le nombre total d'élèves
+});
 
      // Trier les lignes par prénom avant de les ajouter au tableau
      sortedRows.sort((a, b) => {
-            const nameA = a.querySelector('td:nth-child(3) b').textContent.toLowerCase();
-            const nameB = b.querySelector('td:nth-child(3) b').textContent.toLowerCase();
-            return nameA.localeCompare(nameB);
+         const nameA = a.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+         const nameB = b.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+         return nameA.localeCompare(nameB);
         });
-
+        
         // Mettre à jour le tableau avec les lignes triées
         const tbody = document.getElementById('studentTable').querySelector('tbody');
         tbody.innerHTML = ''; // Effacer le contenu actuel du tbody
@@ -262,8 +291,8 @@ table{
         totalFeesElement.textContent = totalFees.toFixed(0);
         totalPaidElement.textContent = totalPaid.toFixed(0);
         totalBalanceElement.textContent = totalBalance.toFixed(0);
-    
-
+        totalStudentsElement.textContent = totalStudents; // Update the total students count
+   
 </script>
 
 
