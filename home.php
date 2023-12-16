@@ -25,7 +25,7 @@ function getNombrePaiement() {
     global $conn;
     
     
-    $query = $conn->query('SELECT COUNT(*) AS total FROM payments');
+    $query = $conn->query('SELECT COUNT(*) AS total FROM payments where amount > 0');
     
     $result = $query->fetch_array();
                 
@@ -39,8 +39,124 @@ $paiements = getNombrePaiement();
 function getSommesTotalPayer() {
     global $conn;
 
+    /*
+     const totalFeesElement = document.getElementById('totalFees');
+const totalPaidElement = document.getElementById('totalPaid');
+const totalBalanceElement = document.getElementById('totalBalance');
+const totalStudentsElement = document.getElementById('totalStudents');
+let filteredCounter = 1; // Initialiser le compteur pour les étudiants filtrés
+
+// Fonction pour mettre à jour les totaux
+function updateTotals() {
+    const rows = document.querySelectorAll('#studentTable tbody tr');
+
+    let totalFees = 0;
+    let totalPaid = 0;
+    let totalStudents = 0;
+
+    rows.forEach(row => {
+        const fees = parseInt(row.querySelector('td:nth-child(6) p b').textContent);
+        const paid = parseInt(row.querySelector('td:nth-child(7) p b').textContent);
+
+        totalFees += fees;
+        totalPaid += paid;
+        totalStudents++;
+    });
+
+    const totalBalance = totalFees - totalPaid;
+
+    totalFeesElement.textContent = totalFees.toFixed(0);
+    totalPaidElement.textContent = totalPaid.toFixed(0);
+    totalBalanceElement.textContent = totalBalance.toFixed(0);
+    totalStudentsElement.textContent = totalStudents;
+}
+
+// Exécuter la fonction pour mettre à jour les totaux au chargement de la page
+updateTotals();
+
+// Écouteur d'événements pour le champ de recherche
+document.getElementById('searchInput').addEventListener('input', function () {
+    const searchText = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#studentTable tbody tr');
+    const tbody = document.getElementById('studentTable').querySelector('tbody');
+
+    let totalFees = 0;
+    let totalPaid = 0;
+    let totalStudents = 0;
+
+    // Réinitialiser le compteur pour les étudiants filtrés
+    filteredCounter = 1;
+
+    // Réinitialiser le contenu actuel du tbody
+    tbody.innerHTML = '';
+
+    rows.forEach(row => {
+        const studentName = row.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+        const studentClasse = row.querySelector('td:nth-child(5) b').textContent.toLowerCase();
+        const fees = parseInt(row.querySelector('td:nth-child(6) p b').textContent);
+        const paid = parseInt(row.querySelector('td:nth-child(7) p b').textContent);
+
+        if (studentName.includes(searchText) || studentClasse.includes(searchText)) {
+            totalFees += fees;
+            totalPaid += paid;
+            totalStudents++;
+
+            // Créer une nouvelle ligne avec le compteur filtré
+            const filteredRow = row.cloneNode(true);
+            filteredRow.querySelector('td:nth-child(1)').textContent = filteredCounter++;
+            tbody.appendChild(filteredRow);
+        }
+  
+        
+    });
+    
+    // Si le champ de recherche est vide, réafficher toutes les lignes non filtrées
+    // if (searchText === '') {
+    // rows.forEach(row => {
+    //     totalFees += parseInt(row.querySelector('td:nth-child(6) p b').textContent);
+    //     totalPaid += parseInt(row.querySelector('td:nth-child(7) p b').textContent);
+    //     totalStudents++;
+
+    //        // Ajouter chaque ligne non filtrée au tbody
+    //        tbody.appendChild(row);
+    // });
+    // }
+
+    const totalBalance = totalFees - totalPaid;
+
+    totalFeesElement.textContent = totalFees.toFixed(0);
+    totalPaidElement.textContent = totalPaid.toFixed(0);
+    totalBalanceElement.textContent = totalBalance.toFixed(0);
+    totalStudentsElement.textContent = totalStudents; // Mettez à jour le nombre total d'élèves
+});
+
+     // Trier les lignes par prénom avant de les ajouter au tableau
+     sortedRows.sort((a, b) => {
+         const nameA = a.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+         const nameB = b.querySelector('td:nth-child(3) b').textContent.toLowerCase();
+         return nameA.localeCompare(nameB);
+        });
+        
+        // Mettre à jour le tableau avec les lignes triées
+        const tbody = document.getElementById('studentTable').querySelector('tbody');
+        tbody.innerHTML = ''; // Effacer le contenu actuel du tbody
+
+        sortedRows.forEach(row => {
+            tbody.appendChild(row); // Ajouter chaque ligne triée au tbody
+        });
+
+        // Mettre à jour les totaux
+        const totalBalance = totalFees - totalPaid;
+        totalFeesElement.textContent = totalFees.toFixed(0);
+        totalPaidElement.textContent = totalPaid.toFixed(0);
+        totalBalanceElement.textContent = totalBalance.toFixed(0);
+        totalStudentsElement.textContent = totalStudents; // Update the total students count
+    
+
+    */
        
-$query = $conn->query('SELECT SUM(amount) AS total FROM payments');
+    $query = $conn->query('SELECT SUM(amount) AS total FROM payments WHERE remarks <> "Non payer"');
+    // $query = $conn->query('SELECT SUM(amount) AS total FROM payments');
                
 $result = $query->fetch_assoc();
                 

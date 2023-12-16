@@ -166,8 +166,7 @@ table{
             $totalPaid += $paid;
         ?>
         <tr>
-            <td class="text-center"><?php echo $i++ ?></td>
-            <td>
+        <td class="text-center"><?php echo $i++ ?></td>            <td>
                 <p> <b><?php echo $row['id_no'] ?></b></p>
             </td>
             <td>
@@ -217,6 +216,7 @@ table{
       const totalPaidElement = document.getElementById('totalPaid');
       const totalBalanceElement = document.getElementById('totalBalance');
         const totalStudentsElement = document.getElementById('totalStudents');
+        let filteredCounter = 1; // Initialiser le compteur pour les étudiants filtrés
 
         function updateTotals() {
     const rows = document.querySelectorAll('#studentTable tbody tr');
@@ -242,13 +242,19 @@ table{
     totalStudentsElement.textContent = totalStudents;
 }
  updateTotals();
+
    document.getElementById('searchInput').addEventListener('input', function () {
     const searchText = this.value.toLowerCase();
     const rows = document.querySelectorAll('#studentTable tbody tr');
+       const tbody = document.getElementById('studentTable').querySelector('tbody');
 
     let totalFees = 0;
     let totalPaid = 0;
     let totalStudents = 0;
+    filteredCounter = 1;
+
+     // Réinitialiser le contenu actuel du tbody
+    tbody.innerHTML = '';
     
     rows.forEach(row => {
         const studentName = row.querySelector('td:nth-child(3) b').textContent.toLowerCase();
@@ -259,8 +265,19 @@ table{
         if (studentName.includes(searchText) || studentClasse.includes(searchText)) {
             totalFees += fees;
             totalPaid += paid;
+            
             totalStudents ++;
+
+             // Créer une nouvelle ligne avec le compteur filtré
+             const filteredRow = row.cloneNode(true);
+            filteredRow.querySelector('td:nth-child(1)').textContent = filteredCounter++;
+            tbody.appendChild(filteredRow);
+
+        }else{
+            tbody.appendChild(row);
         }
+        
+        
     });
 
     const totalBalance = totalFees - totalPaid;
