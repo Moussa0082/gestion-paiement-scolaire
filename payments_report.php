@@ -106,11 +106,9 @@ if($payments->num_rows > 0):
     <tr>
         <th colspan="5" class="text-right">Total</th>
         <th class="text-right" id="dynamic-total"><?php echo $total ?></th>
-        <th></th>
+        <!-- <th></th> -->
     </tr>
-    <tr>
-        <td colspan="7" class="text-right" id="filtered-total">Total filtré: <span id="filtered-total-value">0.00</span></td>
-    </tr>
+    
 </tfoot>
                 </table>
                 <hr>
